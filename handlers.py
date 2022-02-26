@@ -17,7 +17,6 @@ def message_handler(update: Update, context: CallbackContext):
     return
 
   quote_message = f"""\"{quote["text"]}\"
-
 - <i>{quote["authorName"]}</i>"""
 
   context.bot.send_message(
