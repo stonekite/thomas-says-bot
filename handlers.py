@@ -1,5 +1,3 @@
-import json
-import logging
 from telegram.constants import PARSEMODE_HTML
 from telegram import Update
 from telegram.ext import CallbackContext
@@ -22,7 +20,7 @@ def message_handler(update: Update, context: CallbackContext):
   context.bot.send_message(
     text=quote_message,
     chat_id=update.effective_chat.id,
-    reply_to_message_id=update.message.message_id,
+    reply_to_message_id=update.effective_message.message_id,
     parse_mode=PARSEMODE_HTML,
     disable_notification=True
   )
