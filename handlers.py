@@ -6,10 +6,11 @@ import requests
 
 
 match_endpoint = "https://thomas-says-api.vercel.app/api/keyword/match"
-last_sent = datetime.now()
+last_sent = datetime.now() - timedelta(minutes=10)
 
 
 def message_handler(update: Update, context: CallbackContext):
+  global last_sent
   now = datetime.now()
   if now - last_sent < timedelta(minutes=10):
     return
