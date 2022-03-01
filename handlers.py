@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from telegram.constants import PARSEMODE_HTML
 from telegram import Update
 from telegram.ext import CallbackContext
@@ -5,9 +6,14 @@ import requests
 
 
 match_endpoint = "https://thomas-says-api.vercel.app/api/keyword/match"
+last_sent = datetime.now()
 
 
 def message_handler(update: Update, context: CallbackContext):
+  now = datetime.now()
+  if now - last_sent < timedelta(minutes=10):
+    return
+
   text = update.message.text
   quote = requests.post(match_endpoint, data={ "message": text }).json()
 
@@ -24,3 +30,5 @@ def message_handler(update: Update, context: CallbackContext):
     parse_mode=PARSEMODE_HTML,
     disable_notification=True
   )
+
+  last_sent = now
